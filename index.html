@@ -162,6 +162,21 @@
       transition: width 0.35s ease;
     }
 
+    .streak-wrap {
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-radius: 18px;
+      background: rgba(154, 92, 63, 0.08);
+      border: 1px solid rgba(154, 92, 63, 0.12);
+      color: var(--accent-dark);
+      font-size: 0.95rem;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
     .task-list {
       list-style: none;
       padding: 0;
@@ -325,6 +340,10 @@
         <div class="progress-track">
           <div class="progress-fill" id="progressFill"></div>
         </div>
+        <div class="streak-wrap">
+          <span>🔥 Streak</span>
+          <strong><span id="streakDisplay">0</span> day(s)</strong>
+        </div>
       </div>
 
       <ul class="task-list" id="taskList"></ul>
@@ -374,13 +393,52 @@
       document.getElementById("todayDate").textContent = "Today is " + formatDate(new Date());
     }
 
+    function cleanOldTasks() {
+      const today = todayISO();
+      const tasks = loadTasks();
+      const filtered = tasks.filter(t => t.date >= today);
+      if (filtered.length !== tasks.length) {
+        saveTasks(filtered);
+      }
+    }
+
+    function updateStreak(todayTasks) {
+      let streak = parseInt(localStorage.getItem("streak")) || 0;
+      let lastCompletedDate = localStorage.getItem("lastCompletedDate");
+
+      const today = todayISO();
+      const yesterday = new Date();
+      yesterday.setDate(yesterday.getDate() - 1);
+      const yesterdayStr = yesterday.toISOString().split("T")[0];
+
+      const allDone = todayTasks.length > 0 && todayTasks.every(t => t.completed);
+
+      if (allDone && lastCompletedDate !== today) {
+        if (lastCompletedDate === yesterdayStr) {
+          streak += 1;
+        } else {
+          streak = 1;
+        }
+
+        localStorage.setItem("streak", streak);
+        localStorage.setItem("lastCompletedDate", today);
+      }
+
+      document.getElementById("streakDisplay").textContent = streak;
+    }
+
     function renderTasks() {
+      cleanOldTasks();
+
       const list = document.getElementById("taskList");
       const empty = document.getElementById("emptyState");
       const progressWrap = document.getElementById("progressWrap");
       const tasks = loadTasks().filter(t => t.date === todayISO());
 
       list.innerHTML = "";
+
+      const savedStreak = localStorage.getItem("streak") || 0;
+      document.getElementById("streakDisplay").textContent = savedStreak;
 
       if (tasks.length === 0) {
         empty.style.display = "block";
@@ -436,6 +494,8 @@
         li.appendChild(del);
         list.appendChild(li);
       });
+
+      updateStreak(tasks);
     }
 
     document.getElementById("clearDone").addEventListener("click", () => {
