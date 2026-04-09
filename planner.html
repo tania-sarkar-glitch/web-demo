@@ -27,6 +27,7 @@
     }
 
     * { box-sizing: border-box; }
+
     body {
       margin: 0;
       font-family: "Segoe UI", Arial, sans-serif;
@@ -123,6 +124,75 @@
       line-height: 1.5;
     }
 
+    .section-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 0 0 10px;
+    }
+
+    .date-switch {
+      margin: 12px 0 16px;
+      padding: 14px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.55);
+      border: 1px solid rgba(121, 69, 49, 0.10);
+    }
+
+    .date-switch-row {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .date-switch-title {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--accent-dark);
+      font-size: 0.92rem;
+      font-weight: 600;
+    }
+
+    .radio-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: var(--radius-sm);
+      background: #fff;
+      border: 1px solid rgba(121, 69, 49, 0.14);
+      cursor: pointer;
+      transition: 0.18s ease;
+      user-select: none;
+      color: var(--text);
+      font-size: 0.92rem;
+    }
+
+    .radio-pill:hover {
+      background: #faf3ec;
+      transform: translateY(-1px);
+    }
+
+    .radio-pill input {
+      accent-color: var(--accent);
+      cursor: pointer;
+    }
+
+    .target-badge {
+      margin-top: 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      background: rgba(154, 92, 63, 0.08);
+      border: 1px solid rgba(154, 92, 63, 0.12);
+      color: var(--accent-dark);
+      font-size: 0.88rem;
+    }
+
     .input-row {
       display: flex;
       gap: 10px;
@@ -182,14 +252,6 @@
     .btn-soft:hover {
       background: #ecd9c7;
       transform: translateY(-1px);
-    }
-
-    .section-label {
-      font-size: 0.72rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin: 0 0 10px;
     }
 
     .chips {
@@ -352,6 +414,8 @@
       .panel { padding: 18px; }
       .input-row, .custom-box { flex-direction: column; }
       .btn, .btn-primary, .btn-soft { width: 100%; }
+      .date-switch-row { flex-direction: column; align-items: flex-start; }
+      .radio-pill { width: 100%; justify-content: flex-start; }
     }
   </style>
 </head>
@@ -362,18 +426,33 @@
         <span class="brand-dot"></span>
         <h1>DayDraft</h1>
       </div>
-      <p class="sub">Plan tomorrow with little brown-paper warmth and tidy repetition.</p>
+      <p class="sub">Plan today or tomorrow with little brown-paper warmth and tidy repetition.</p>
       <div class="date-pill" id="plannerDate">Loading date…</div>
     </header>
 
     <div class="grid">
       <section class="panel">
         <p class="section-label">Plan</p>
-        <h2>Plan tasks for tomorrow</h2>
-        <p class="caption">Tap the quick buttons as many times as you need. They are designed for repetitive tasks. Custom is always open like a tiny side door.</p>
+        <h2>Plan tasks</h2>
+        <p class="caption">Choose whether the task belongs to today or tomorrow. Quick buttons can be tapped again and again for repeated tasks, and Custom is always open.</p>
+
+        <div class="date-switch">
+          <span class="date-switch-title">Add task for</span>
+          <div class="date-switch-row">
+            <label class="radio-pill">
+              <input type="radio" name="taskDate" value="today" checked />
+              Today
+            </label>
+            <label class="radio-pill">
+              <input type="radio" name="taskDate" value="tomorrow" />
+              Tomorrow
+            </label>
+          </div>
+          <div class="target-badge" id="targetBadge">Saving tasks for today</div>
+        </div>
 
         <div class="input-row">
-          <input id="taskInput" class="task-input" type="text" placeholder="Type a task for tomorrow..." maxlength="120" />
+          <input id="taskInput" class="task-input" type="text" placeholder="Type a task..." maxlength="120" />
           <button class="btn btn-primary" id="addBtn">+ Add task</button>
         </div>
 
@@ -386,16 +465,16 @@
         </div>
 
         <div class="hint">
-          Tip: click any quick task button again and again to add repeated tasks, like breakfast twice, prayer, or work blocks.
+          Tip: click any quick task button again and again to add repeated tasks like breakfast twice, prayer, or work blocks.
         </div>
       </section>
 
       <aside class="preview">
         <div class="preview-card">
           <p class="section-label">Saved flow</p>
-          <h3 class="preview-title">Tomorrow’s task basket</h3>
+          <h3 class="preview-title">Selected day basket</h3>
           <p class="preview-text">
-            Tasks are saved with tomorrow’s date, so your main page can show only the correct day later.
+            Tasks are saved with the day you choose, so the main page can show only the correct date later.
           </p>
           <ul class="mini-list" id="taskPreview"></ul>
         </div>
@@ -403,7 +482,7 @@
         <div class="preview-card">
           <p class="section-label">Navigation</p>
           <h3 class="preview-title">Open your dashboard</h3>
-          <p class="preview-text">Your main page is where today’s tasks will appear with a progress bar.</p>
+          <p class="preview-text">Your main page is where today’s tasks appear with a progress bar and streak tracking.</p>
           <div class="footer-link">
             <a href="index.html">Go to index.html</a>
           </div>
@@ -447,6 +526,10 @@
       });
     }
 
+    function todayISO() {
+      return new Date().toISOString().split("T")[0];
+    }
+
     function tomorrowISO() {
       const d = new Date();
       d.setDate(d.getDate() + 1);
@@ -465,10 +548,25 @@
       localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
     }
 
+    function getSelectedDate() {
+      const selected = document.querySelector('input[name="taskDate"]:checked')?.value || "today";
+      return selected === "tomorrow" ? tomorrowISO() : todayISO();
+    }
+
+    function getSelectedLabel() {
+      const selected = document.querySelector('input[name="taskDate"]:checked')?.value || "today";
+      return selected === "tomorrow" ? "tomorrow" : "today";
+    }
+
     function renderDate() {
-      const tomorrow = new Date();
-      tomorrow.setDate(tomorrow.getDate() + 1);
-      document.getElementById("plannerDate").textContent = "Planning for " + formatDate(tomorrow);
+      const today = new Date();
+      document.getElementById("plannerDate").textContent = "Today is " + formatDate(today);
+    }
+
+    function updateTargetBadge() {
+      const label = getSelectedLabel();
+      const badge = document.getElementById("targetBadge");
+      badge.textContent = label === "today" ? "Saving tasks for today" : "Saving tasks for tomorrow";
     }
 
     function renderPresetChips() {
@@ -497,7 +595,8 @@
 
     function renderPreview() {
       const preview = document.getElementById("taskPreview");
-      const tasks = loadTasks().filter(t => t.date === tomorrowISO()).slice(0, 6);
+      const targetDate = getSelectedDate();
+      const tasks = loadTasks().filter(t => t.date === targetDate).slice(0, 6);
       preview.innerHTML = "";
 
       if (!tasks.length) {
@@ -520,17 +619,19 @@
       }
 
       const tasks = loadTasks();
+      const targetDate = getSelectedDate();
+
       tasks.push({
         id: uid(),
         text: clean,
-        date: tomorrowISO(),
+        date: targetDate,
         completed: false
       });
 
       saveTasks(tasks);
       document.getElementById("taskInput").value = "";
       renderPreview();
-      toast("Task saved for tomorrow.");
+      toast(getSelectedLabel() === "today" ? "Task saved for today." : "Task saved for tomorrow.");
     }
 
     document.getElementById("addBtn").addEventListener("click", () => {
@@ -553,7 +654,15 @@
       toast(`Custom button "${custom}" added.`);
     });
 
+    document.querySelectorAll('input[name="taskDate"]').forEach(radio => {
+      radio.addEventListener("change", () => {
+        updateTargetBadge();
+        renderPreview();
+      });
+    });
+
     renderDate();
+    updateTargetBadge();
     renderPresetChips();
     renderPreview();
   </script>
