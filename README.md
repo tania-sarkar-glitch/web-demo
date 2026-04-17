@@ -63,16 +63,18 @@ DayDraft is a visually minimal task planner designed to simplify daily productiv
 
 ## ☁️ Azure Deployment Proof
 
-![App Service](screenshots/AZURE/app-service.png)
+![App Service](screenshots/AZURE/web-app.png)
 ![Deployment](screenshots/AZURE/deployment-center.png)
 ![Resource Group](screenshots/AZURE/resource-group.png)
+![configurations](screenshots/AZURE/configurations.png)
 
 ---
 
 ## 🔄 Automation Workflow (Logic Apps)
 
-![Logic App](screenshots/AUTOMATION/logic-app-overview.png)
+![Logic App](screenshots/AUTOMATION/logic-app.png)
 ![Designer](screenshots/AUTOMATION/logic-app-designer.png)
+![Connections](screenshots/AUTOMATION/logic-app-connections.png)
 ![Trigger](screenshots/AUTOMATION/recurrence-trigger.png)
 ![Email](screenshots/AUTOMATION/email-received.png)
 
@@ -80,8 +82,8 @@ DayDraft is a visually minimal task planner designed to simplify daily productiv
 
 ## ⚙️ CI/CD Pipeline
 
-![GitHub Actions](screenshots/ci-cd/github-actions.png)
-![Repository](screenshots/ci-cd/github-repo.png)
+![GitHub Actions](screenshots/CI-CD/github-actions.png)
+![Repository](screenshots/CI-CD/github-repo.png)
 
 ---
 
