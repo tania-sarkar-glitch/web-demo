@@ -55,9 +55,9 @@ DayDraft is a visually minimal task planner designed to simplify daily productiv
 
 ## 📸 Application Screens
 
-![Planner](screenshots/APP UI/planner.png)
-![Dashboard](screenshots/APP UI/dashboard.png)
-![Progress](screenshots/APP UI/task-completed.png)
+![Planner](screenshots/app/planner.png)
+![Dashboard](screenshots/app/dashboard.png)
+![Progress](screenshots/app/tasks-completed.png)
 
 ---
 
