@@ -1,59 +1,120 @@
 # DayDraft 🌿
 
-Aesthetic daily task planner with progress tracking, streaks, and Azure automation.
-
-## Overview
-DayDraft is a simple, visually soothing task planner that helps users organize their daily tasks. It tracks progress, maintains a streak for task completion, and integrates with Azure Logic Apps for daily reminders.
-
-## Live Demo
-- Web App (Azure): [Link coming soon]
-- GitHub Pages: [Link coming soon]
-
-## Key Features
-- Add tasks for **today** or **tomorrow**
-- Quick-add buttons (e.g., Work, Study, Lunch, etc.)
-- Custom tasks with user-defined buttons
-- Progress bar tracking daily task completion
-- Streak system: increase streak when all tasks are completed
-- Automated daily email reminders via Azure Logic Apps
-- Persistent task storage with `localStorage`
-- Cloud deployment via GitHub Actions to Azure
-
-## Tech Stack
-- Front-end: HTML, CSS, Vanilla JavaScript
-- Cloud: Azure App Service, Logic Apps
-- CI/CD: GitHub Actions
-- Data: localStorage (future plans for cloud persistence)
-
-## How It Works
-1. Open `planner.html` to add tasks for tomorrow.
-2. Quick buttons let you add tasks easily; custom buttons allow flexibility.
-3. Open `index.html` to see today’s tasks.
-4. Check off tasks and watch your progress bar grow.
-5. Complete all tasks? Your streak increases!
-6. At midnight, Azure Logic Apps sends you a reminder email to help you plan for the next day.
-
-## CI/CD with GitHub Actions
-- Every push to `main` triggers deployment to Azure App Service.
-- Workflow defined in `.github/workflows/main_projectwebdemo.yml`.
-
-## Screenshots
-(Add screenshots from your demo here)
-
-## What I Learned
-- Deploying static sites to Azure App Service
-- Scheduling workflows with Logic Apps
-- Building a streak-based productivity UX
-- CI/CD integration with GitHub Actions
-- Using localStorage for persistent data
-
-## Future Enhancements
-- Store tasks in Azure Table Storage or Cosmos DB
-- Add multi-device sync
-- User authentication
-- Dark mode
-- Custom reminders
+Aesthetic daily task planner with progress tracking, streaks, and cloud-based automation.
 
 ---
 
-Made with ☕, code, and a sprinkle of Azure magic.
+## 🌐 Live Demo
+
+- 🔗 Dashboard:  
+  https://tania-sarkar-glitch.github.io/web-demo/
+
+- 📝 Planner:  
+  https://tania-sarkar-glitch.github.io/web-demo/planner.html
+
+> ⚠️ Azure resources were decommissioned after the demonstration to avoid ongoing costs. Full proof of deployment and automation is provided below.
+
+---
+
+## ✨ Overview
+
+DayDraft is a visually minimal task planner designed to simplify daily productivity through structured planning, progress tracking, and streak-based motivation.
+
+---
+
+## 🚀 Features
+
+- Add tasks for today or tomorrow  
+- Quick-add buttons (Work, Study, etc.)  
+- Custom tasks  
+- Progress bar tracking  
+- Streak system  
+- Email reminders via Azure Logic Apps (demo proof below)  
+- Persistent storage using localStorage  
+
+---
+
+## 🧠 Tech Stack
+
+- HTML, CSS, JavaScript  
+- Azure App Service (Demo Phase)  
+- Azure Logic Apps  
+- GitHub Actions (CI/CD)  
+
+---
+
+## ⚙️ How It Works
+
+1. Plan tasks via planner  
+2. View tasks on dashboard  
+3. Track progress  
+4. Complete tasks → increase streak  
+5. Azure Logic App sends scheduled reminders  
+
+---
+
+## 📸 Application Screens
+
+![Planner](screenshots/APP UI/planner.png)
+![Dashboard](screenshots/APP UI/dashboard.png)
+![Progress](screenshots/APP UI/task-completed.png)
+
+---
+
+## ☁️ Azure Deployment Proof
+
+![App Service](screenshots/AZURE/app-service.png)
+![Deployment](screenshots/AZURE/deployment-center.png)
+![Resource Group](screenshots/AZURE/resource-group.png)
+
+---
+
+## 🔄 Automation Workflow (Logic Apps)
+
+![Logic App](screenshots/AUTOMATION/logic-app-overview.png)
+![Designer](screenshots/AUTOMATION/logic-app-designer.png)
+![Trigger](screenshots/AUTOMATION/recurrence-trigger.png)
+![Email](screenshots/AUTOMATION/email-received.png)
+
+---
+
+## ⚙️ CI/CD Pipeline
+
+![GitHub Actions](screenshots/ci-cd/github-actions.png)
+![Repository](screenshots/ci-cd/github-repo.png)
+
+---
+
+## 🎥 Demo Video
+
+https://drive.google.com/file/d/1szJS_v7X8ziBeYPe1Hh5KaL9ywdyKW9v/view?usp=drive_link
+
+---
+
+## 📚 What I Learned
+
+- Cloud deployment using Azure  
+- Workflow automation with Logic Apps  
+- CI/CD using GitHub Actions  
+- Debugging real deployment issues  
+- Building productivity-focused UI  
+
+---
+
+## 🚀 Future Scope
+
+- Cloud database integration  
+- Multi-device sync  
+- Authentication  
+- Dark mode  
+
+---
+
+## 🧾 Note
+
+Azure resources were intentionally removed after testing to prevent unnecessary billing.  
+All workflows and deployments are preserved via documentation and demo assets.
+
+---
+
+✨ Built with consistency, curiosity, and a lot of debugging.
